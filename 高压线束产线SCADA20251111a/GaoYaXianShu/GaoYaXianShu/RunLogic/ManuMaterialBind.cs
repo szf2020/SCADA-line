@@ -64,63 +64,36 @@ namespace GaoYaXianShu.RunLogic
 
         private async Task<Result<bool>> 手动绑定物料Async()
         {
-            try
+            
+            //弹出绑定对话框，等待绑定
+            using (MaterialCodeInputForm m_MaterialCodeInputForm = m_componentContext.Resolve<MaterialCodeInputForm>())
             {
-                //弹出绑定对话框，等待绑定
-                using (LSN_materialCodeInputForm m_MaterialCodeInputForm = m_componentContext.Resolve<LSN_materialCodeInputForm>())
+                DialogResult result = m_MaterialCodeInputForm.ShowDialog();
+
+                if (result == DialogResult.OK)
                 {
-                    DialogResult result = m_MaterialCodeInputForm.ShowDialog();
 
-                    if (result == DialogResult.OK)
-                    {
+                    m_UIManeger.AppendDataLog("线束添加批次成功");
+                    UIMessageTip.ShowOk("添加批次成功");
 
-                        m_UIManeger.AppendDataLog("左线束添加批次成功");
-                        UIMessageTip.ShowOk("添加批次成功");
-
-                    }
-                    else if (result == DialogResult.Abort)
-                    {
-                        m_UIManeger.AppendErrorLog("输入异常，请重新输入");
-                        return Result.Fail("false");
-                    }
-                    else
-                    {
-                        m_UIManeger.AppendinfoLog("用户取消了操作");
-                        return Result.Fail("false");
-                    }
                 }
-                //弹出绑定对话框，等待绑定
-                using (RSN_materialCodeInputForm m_MaterialCodeInputForm = m_componentContext.Resolve<RSN_materialCodeInputForm>())
+                else if (result == DialogResult.Abort)
                 {
-                    DialogResult result = m_MaterialCodeInputForm.ShowDialog();
-
-                    if (result == DialogResult.OK)
-                    {
-
-                        m_UIManeger.AppendDataLog("左线束添加批次成功");
-                        UIMessageTip.ShowOk("添加批次成功");
-
-                    }
-                    else if (result == DialogResult.Abort)
-                    {
-                        m_UIManeger.AppendErrorLog("输入异常，请重新输入");
-                        return Result.Fail("false");
-                    }
-                    else
-                    {
-                        m_UIManeger.AppendinfoLog("用户取消了操作");
-                        return Result.Fail("false");
-                    }
+                    m_UIManeger.AppendErrorLog("输入异常，请重新输入");
+                    return Result.Fail("false");
                 }
+                else
+                {
+                    m_UIManeger.AppendinfoLog("用户取消了操作");
+                    return Result.Fail("false");
+                }
+            }
+                
 
                 m_UIManeger.Set_TestStart_OK();
 
                 return Result.Ok();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            
         }
     }
 }

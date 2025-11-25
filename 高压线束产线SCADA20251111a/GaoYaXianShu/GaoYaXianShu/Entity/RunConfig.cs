@@ -91,20 +91,13 @@ namespace GaoYaXianShu.Entity
         public string SN的正则表达式 { get; set; } = @"^[a-zA-Z0-9]{18}$";
 
         [Category("PLC")]
-        [Description("托盘左边线束的SN号在PLC的起始地址")]
-        public string 左SN的起始地址 { get; set; }
+        [Description("托盘线束的SN号在PLC的起始地址")]
+        public string SN的起始地址 { get; set; }
 
         [Category("PLC")]
-        [Description("托盘左边线束的SN号字符长度")]
-        public ushort 左SN字符长度 { get; set; }
+        [Description("托盘线束的SN号字符长度")]
+        public ushort SN字符长度 { get; set; }
 
-        [Category("PLC")]
-        [Description("托盘右边线束的SN号在PLC的起始地址")]
-        public string 右SN的起始地址 { get; set; }
-
-        [Category("PLC")]
-        [Description("托盘右边线束的SN号字符长度")]
-        public ushort 右SN字符长度 { get; set; }
 
         [Category("PLC")]
         [Description("托盘号在PLC的起始地址")]
